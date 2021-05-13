@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name" translatable="false">iTrash</string>
     <string name="login_button">Login</string>
-    <string name="login_email" translatable="false">Email</string>
+    <string name="login_email" translatable="false">E-mail</string>
     <string name="login_password">Password</string>
+    <string name="login_text">You dont have an account yet ?</string>
+    <string name="login_register">Register</string>
 </resources>

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="login_button">Zaloguj</string>
-    <string name="login_password">Hasło</string>
+    <string name="login_password">hasło</string>
+    <string name="login_text">Nie masz jeszcze konta ?</string>
+    <string name="login_register">Zarejestruj się</string>
 </resources>
