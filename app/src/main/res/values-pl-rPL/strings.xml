@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="login_button">Zaloguj</string>
+    <string name="login_password">Hasło</string>
+</resources>
