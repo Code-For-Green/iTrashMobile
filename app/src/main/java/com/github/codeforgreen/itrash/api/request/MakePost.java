@@ -34,6 +34,10 @@ public abstract class MakePost extends AsyncTask<String, Void, Void> {
 
     public abstract void onJson(JSONObject json);
 
+    public abstract void onError(HttpURLConnection connection);
+
+    public abstract void onError(Throwable t);
+
     @Override
     protected Void doInBackground(String... strings) {
         try {
@@ -57,21 +61,24 @@ public abstract class MakePost extends AsyncTask<String, Void, Void> {
             Log.i("MSG" , conn.getResponseMessage());
             conn.disconnect();
 
-            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-            StringBuilder sb = new StringBuilder();
-            String line;
-            while ((line = br.readLine()) != null) {
-                sb.append(line).append("\n");
-            }
-            br.close();
+            if (conn.getResponseCode() == 200) {
+                BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                StringBuilder sb = new StringBuilder();
+                String line;
+                while ((line = br.readLine()) != null) {
+                    sb.append(line).append("\n");
+                }
+                br.close();
 
-            Log.i("JSON" , sb.toString());
-            this.onJson(new JSONObject(sb.toString()));
-            return null;
+                Log.i("JSON" , sb.toString());
+                this.onJson(new JSONObject(sb.toString()));
+            } else {
+                this.onError(conn);
+            }
         } catch (Throwable t) {
             t.printStackTrace();
+            this.onError(t);
         }
-        this.onJson(new JSONObject());
         return null;
     }
 }

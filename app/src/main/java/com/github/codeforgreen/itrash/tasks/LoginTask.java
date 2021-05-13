@@ -3,13 +3,17 @@ package com.github.codeforgreen.itrash.tasks;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
 import com.github.codeforgreen.itrash.MainActivity;
 import com.github.codeforgreen.itrash.api.request.MakePost;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.net.HttpURLConnection;
 
 public class LoginTask extends MakePost {
 
@@ -32,5 +36,21 @@ public class LoginTask extends MakePost {
         } catch (Throwable t) {
             t.printStackTrace();
         }
+    }
+
+    @Override
+    public void onError(HttpURLConnection connection) {
+        this.activity.runOnUiThread(() -> {
+            try {
+                Toast.makeText(this.activity.getApplicationContext(), connection.getResponseMessage(), Toast.LENGTH_LONG).show();
+            } catch (Throwable t) {
+                this.onError(t);
+            }
+        });
+    }
+
+    @Override
+    public void onError(Throwable t) {
+        this.activity.runOnUiThread(() -> Toast.makeText(this.activity.getApplicationContext(), t.toString(), Toast.LENGTH_LONG).show());
     }
 }
