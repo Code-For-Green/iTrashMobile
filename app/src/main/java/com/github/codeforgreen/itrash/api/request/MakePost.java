@@ -9,7 +9,7 @@ import java.io.DataOutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public abstract class MakePost extends AsyncTask<String, Void, Void> {
+public abstract class MakePost extends AsyncTask<String, Void, JSONObject> {
 
     private final String url;
     private final JSONObject json;
@@ -19,10 +19,8 @@ public abstract class MakePost extends AsyncTask<String, Void, Void> {
         this.json = json;
     }
 
-    public abstract void onResponse(HttpURLConnection connection);
-
     @Override
-    protected Void doInBackground(String... strings) {
+    protected JSONObject doInBackground(String... strings) {
         try {
             URL url = new URL(this.url);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -42,12 +40,12 @@ public abstract class MakePost extends AsyncTask<String, Void, Void> {
             Log.i("STATUS", String.valueOf(conn.getResponseCode()));
             Log.i("MSG" , conn.getResponseMessage());
 
-            this.onResponse(conn);
-
             conn.disconnect();
-        } catch (Exception e) {
-            e.printStackTrace();
+
+            return new JSONObject(conn.getResponseMessage());
+        } catch (Throwable t) {
+            t.printStackTrace();
         }
-        return null;
+        return new JSONObject();
     }
 }

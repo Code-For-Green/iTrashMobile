@@ -10,14 +10,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.github.codeforgreen.itrash.tasks.LoginTask;
+import com.github.codeforgreen.itrash.util.Constants;
 import com.github.codeforgreen.itrash.util.Hash;
 
-import org.json.JSONException;
-
-import java.security.NoSuchAlgorithmException;
+import org.json.JSONObject;
 
 public class LoginActivity extends AppCompatActivity {
-
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,17 +24,21 @@ public class LoginActivity extends AppCompatActivity {
         register.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
-    public void login_button(View view) throws JSONException, NoSuchAlgorithmException {
+    public void login_button(View view) {
         EditText email = findViewById(R.id.login_email);
         EditText password = findViewById(R.id.login_password);
 
-        new LoginTask(email.getText().toString(), Hash.hash(password.getText().toString())).execute(null, null);
+        try {
+            JSONObject json = new LoginTask(email.getText().toString(), Hash.hash(password.getText().toString())).execute(null, null).get();
+            Constants.TOKEN = json.getString("Token");
+            Constants.EXPIRATION = json.getInt("Expiration");
+            System.out.println(Constants.TOKEN);
+            System.out.println(Constants.EXPIRATION);
 
-        //Wersja robocza
-
-        if (email.getText().toString().equals("admin") && password.getText().toString().equals("admin")){
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(intent);
+        } catch (Throwable t) {
+            t.printStackTrace();
         }
     }
 
