@@ -9,12 +9,12 @@
 
     <ImageView
         android:id="@+id/login_img"
-        android:layout_width="310dp"
-        android:layout_height="wrap_content"
+        android:layout_width="155dp"
+        android:layout_height="195dp"
         android:layout_marginBottom="75dp"
         android:contentDescription="@string/app_name"
-        android:scaleType="center"
-        app:srcCompat="@mipmap/logo_foreground" />
+        android:scaleType="fitCenter"
+        app:srcCompat="@drawable/app_logo_no_border" />
 
     <EditText
         android:id="@+id/login_email"
