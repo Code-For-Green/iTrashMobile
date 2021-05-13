@@ -13,6 +13,8 @@ import android.widget.TextView;
 
 import com.github.codeforgreen.itrash.tasks.LoginTask;
 
+import java.util.Date;
+
 public class LoginActivity extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,8 +22,17 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.login);
         TextView register = findViewById(R.id.login_register);
         register.setMovementMethod(LinkMovementMethod.getInstance());
+
         SharedPreferences preferences = getPreferences(MODE_PRIVATE);
-        Log.i("test", preferences.getString("Token", ""));
+        String token = preferences.getString("Token", "");
+        long expiration = preferences.getLong("Expiration", 0);
+        Log.i("Token", token);
+        Log.i("CurrentDate", String.valueOf(System.currentTimeMillis()));
+        Log.i("Expiration", String.valueOf(expiration));
+        if (!token.isEmpty() && expiration != 0 && System.currentTimeMillis() < expiration) {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        }
     }
 
     public void login_button(View view) {

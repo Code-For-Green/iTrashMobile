@@ -9,7 +9,9 @@ import com.github.codeforgreen.itrash.util.Constants;
 
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
 import java.io.DataOutputStream;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -53,10 +55,18 @@ public abstract class MakePost extends AsyncTask<String, Void, Void> {
             Log.i("METHOD", conn.getRequestMethod());
             Log.i("STATUS", String.valueOf(conn.getResponseCode()));
             Log.i("MSG" , conn.getResponseMessage());
-
             conn.disconnect();
 
-            this.onJson(new JSONObject(conn.getResponseMessage()));
+            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            StringBuilder sb = new StringBuilder();
+            String line;
+            while ((line = br.readLine()) != null) {
+                sb.append(line).append("\n");
+            }
+            br.close();
+
+            Log.i("JSON" , sb.toString());
+            this.onJson(new JSONObject(sb.toString()));
             return null;
         } catch (Throwable t) {
             t.printStackTrace();

@@ -1,5 +1,6 @@
 package com.github.codeforgreen.itrash.tasks;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
@@ -21,9 +22,9 @@ public class LoginTask extends MakePost {
     @Override
     public void onJson(JSONObject json) {
         try {
-            SharedPreferences.Editor editor = this.activity.getPreferences(this.activity.MODE_PRIVATE).edit();
+            SharedPreferences.Editor editor = this.activity.getPreferences(Context.MODE_PRIVATE).edit();
             editor.putString("Token", json.getString("Token"));
-            editor.putInt("Expiration", json.getInt("Expiration"));
+            editor.putLong("Expiration", json.getLong("Expiration") * 1000);
             editor.apply();
 
             Intent intent = new Intent(this.activity, MainActivity.class);
