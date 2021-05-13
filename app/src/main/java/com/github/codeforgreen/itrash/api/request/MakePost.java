@@ -3,6 +3,8 @@ package com.github.codeforgreen.itrash.api.request;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.github.codeforgreen.itrash.util.Constants;
+
 import org.json.JSONObject;
 
 import java.io.DataOutputStream;
@@ -14,9 +16,18 @@ public abstract class MakePost extends AsyncTask<String, Void, JSONObject> {
     private final String url;
     private final JSONObject json;
 
-    public MakePost(String url, JSONObject json) {
-        this.url = url;
+    public MakePost(String path, JSONObject json, String domain) {
+        this.url = domain + path;
         this.json = json;
+    }
+
+    public MakePost(String path, JSONObject json) {
+        this(path, json, Constants.DOMAIN);
+    }
+
+    @Override
+    protected void onProgressUpdate(Void... values) {
+        super.onProgressUpdate(values);
     }
 
     @Override

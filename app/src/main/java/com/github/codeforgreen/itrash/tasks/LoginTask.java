@@ -8,7 +8,7 @@ import org.json.JSONObject;
 public class LoginTask extends MakePost {
 
     public LoginTask(String email, String password) throws JSONException {
-        super("https://bot.indbuildcraft.pl/itrash", new JSONObject()
+        super("login", new JSONObject()
                 .put("Login", email)
                 .put("Password", password));
     }
