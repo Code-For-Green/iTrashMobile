@@ -1,19 +1,20 @@
 package com.github.codeforgreen.itrash;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.method.LinkMovementMethod;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.github.codeforgreen.itrash.tasks.LoginTask;
+import com.github.codeforgreen.itrash.util.Hash;
 
-import org.json.JSONObject;
+import org.json.JSONException;
+
+import java.security.NoSuchAlgorithmException;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -25,10 +26,11 @@ public class LoginActivity extends AppCompatActivity {
         register.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
-    public void login_button(View view) {
+    public void login_button(View view) throws JSONException, NoSuchAlgorithmException {
         EditText email = findViewById(R.id.login_email);
         EditText password = findViewById(R.id.login_password);
-        //login functionality.
+
+        new LoginTask(email.getText().toString(), Hash.hash(password.getText().toString())).execute(null, null);
 
         //Wersja robocza
 
