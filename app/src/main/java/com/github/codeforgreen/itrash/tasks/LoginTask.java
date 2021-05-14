@@ -3,8 +3,8 @@ package com.github.codeforgreen.itrash.tasks;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.appcompat.app.AppCompatActivity;
 import android.widget.Toast;
 
 import com.github.codeforgreen.itrash.MainActivity;
@@ -33,6 +33,8 @@ public class LoginTask extends MakePost {
 
             Intent intent = new Intent(this.activity, MainActivity.class);
             this.activity.startActivity(intent);
+            this.activity.finish();
+
         } catch (Throwable t) {
             t.printStackTrace();
         }

@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.View;
@@ -12,8 +12,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.github.codeforgreen.itrash.tasks.LoginTask;
-
-import java.util.Date;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -29,10 +27,8 @@ public class LoginActivity extends AppCompatActivity {
         Log.i("Token", token);
         Log.i("CurrentDate", String.valueOf(System.currentTimeMillis()));
         Log.i("Expiration", String.valueOf(expiration));
-        if (!token.isEmpty() && expiration != 0 && System.currentTimeMillis() < expiration) {
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-        }
+
+
     }
 
     public void login_button(View view) {
