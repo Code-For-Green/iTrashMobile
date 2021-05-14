@@ -18,22 +18,18 @@ public class LoadingScreenActivity extends AppCompatActivity {
         setContentView(R.layout.activity_loading_screen);
         ImageView imageView = findViewById(R.id.gif);
 
-        SharedPreferences preferences = getPreferences(MODE_PRIVATE);
+        SharedPreferences preferences = getSharedPreferences("iTrash", MODE_PRIVATE);
         String token = preferences.getString("Token", "");
         long expiration = preferences.getLong("Expiration", 0);
 
         Handler handler = new Handler();
-
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (!token.isEmpty() && expiration != 0 && System.currentTimeMillis() < expiration) {
-                    startActivity(new Intent(LoadingScreenActivity.this, MainActivity.class));
-                }else {
-                    startActivity(new Intent(LoadingScreenActivity.this, LoginActivity.class));
-                }
-                LoadingScreenActivity.this.finish();
+        handler.postDelayed(() -> {
+            if (!token.isEmpty() && expiration != 0 && System.currentTimeMillis() < expiration) {
+                startActivity(new Intent(LoadingScreenActivity.this, MainActivity.class));
+            } else {
+                startActivity(new Intent(LoadingScreenActivity.this, LoginActivity.class));
             }
+            LoadingScreenActivity.this.finish();
         }, 4000);
 
         Glide.with(this)

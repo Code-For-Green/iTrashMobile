@@ -26,7 +26,7 @@ public class LoginTask extends MakePost {
     @Override
     public void onJson(JSONObject json) {
         try {
-            SharedPreferences.Editor editor = this.activity.getPreferences(Context.MODE_PRIVATE).edit();
+            SharedPreferences.Editor editor = this.activity.getSharedPreferences("iTrash", Context.MODE_PRIVATE).edit();
             editor.putString("Token", json.getString("Token"));
             editor.putLong("Expiration", json.getLong("Expiration") * 1000);
             editor.apply();

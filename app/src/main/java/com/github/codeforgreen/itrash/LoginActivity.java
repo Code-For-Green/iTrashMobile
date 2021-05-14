@@ -1,12 +1,10 @@
 package com.github.codeforgreen.itrash;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import android.text.method.LinkMovementMethod;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -20,15 +18,6 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.login);
         TextView register = findViewById(R.id.login_register);
         register.setMovementMethod(LinkMovementMethod.getInstance());
-
-        SharedPreferences preferences = getPreferences(MODE_PRIVATE);
-        String token = preferences.getString("Token", "");
-        long expiration = preferences.getLong("Expiration", 0);
-        Log.i("Token", token);
-        Log.i("CurrentDate", String.valueOf(System.currentTimeMillis()));
-        Log.i("Expiration", String.valueOf(expiration));
-
-
     }
 
     public void login_button(View view) {
