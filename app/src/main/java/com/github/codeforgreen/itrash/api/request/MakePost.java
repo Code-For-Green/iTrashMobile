@@ -29,7 +29,7 @@ public abstract class MakePost extends AsyncTask<String, Void, Void> {
     }
 
     public MakePost(AppCompatActivity activity, String path, JSONObject json) {
-        this(activity, path, json, Constants.DOMAIN);
+        this(activity, path, json, Constants.getDOMAIN());
     }
 
     public abstract void onJson(JSONObject json);

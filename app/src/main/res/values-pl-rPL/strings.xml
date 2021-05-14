@@ -4,4 +4,7 @@
     <string name="login_password">Hasło</string>
     <string name="login_text">Nie masz jeszcze konta?</string>
     <string name="login_register">Zarejestruj się</string>
+    <string name="action_settings">Ustawienia</string>
+    <string name="action_Authors">Autorzy</string>
+    <string name="nav_calendar">Kalendarz</string>
 </resources>

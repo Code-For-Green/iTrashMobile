@@ -30,7 +30,7 @@ public class LoadingScreenActivity extends AppCompatActivity {
                 startActivity(new Intent(LoadingScreenActivity.this, LoginActivity.class));
             }
             LoadingScreenActivity.this.finish();
-        }, 4000);
+        }, 3500);
 
         Glide.with(this)
                 .load(R.raw.loadnig)

@@ -12,6 +12,6 @@
         android:id="@+id/gif"
         android:layout_width="match_parent"
         android:layout_height="308dp"
-        app:srcCompat="@drawable/app_logo_no_border" />
-
+        android:layout_marginBottom="75dp"
+        app:srcCompat="@raw/loadnig" />
 </LinearLayout>
