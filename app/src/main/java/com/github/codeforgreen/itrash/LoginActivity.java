@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.github.codeforgreen.itrash.tasks.LoginTask;
 import com.github.codeforgreen.itrash.tasks.MiastaTask;
+import com.github.codeforgreen.itrash.tasks.WioskiTask;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -27,6 +28,7 @@ public class LoginActivity extends AppCompatActivity {
         try {
             // Task for tests
             //new MiastaTask(this).execute();
+            //new WioskiTask(this).execute();
             new LoginTask(this, email.getText().toString(), password.getText().toString()).execute();
         } catch (Throwable t) {
             t.printStackTrace();

@@ -18,22 +18,25 @@ import java.util.Map;
 public abstract class CalendarTask extends MakeGet {
 
     @SuppressLint("StaticFieldLeak")
-    public final AppCompatActivity activity;
+    private final AppCompatActivity activity;
+    private final Type type;
 
     public CalendarTask(AppCompatActivity activity, Type type) {
-        super(type.name().toLowerCase() + ".json", "https://bot.indbuildcraft.pl/");
+        super(type.path + ".json", "https://bot.indbuildcraft.pl/");
         this.activity = activity;
+        this.type = type;
     }
 
     @Override
-    public void onJson(JsonElement element) {
+    public void onJson(JsonElement element, String... strings) {
         try {
             JsonObject json = element.getAsJsonObject();
             HashMap<String, Region> regions = new HashMap<>();
             for (Map.Entry<String, JsonElement> entry : json.entrySet()) {
                 regions.put(entry.getKey(), new Region(entry.getKey(), entry.getValue().getAsJsonObject()));
             }
-            System.out.println(regions.get("Miasto. Region 6").getHarmonogram().getData(Month.APRIL));
+            System.out.println(regions);
+            System.out.println(regions.get(type.niceName + ". Region 6").getHarmonogram().getData(Month.APRIL));
         } catch (Throwable t) {
             t.printStackTrace();
         }
@@ -56,7 +59,15 @@ public abstract class CalendarTask extends MakeGet {
     }
 
     public enum Type {
-        MIASTA,
-        WIOSKI
+        MIASTA("miasta", "Miasto"),
+        WIOSKI("wioski", "Wioski"),
+        ;
+
+        private final String path, niceName;
+
+        Type(String path, String niceName) {
+            this.path = path;
+            this.niceName = niceName;
+        }
     }
 }

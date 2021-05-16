@@ -23,7 +23,7 @@ public abstract class MakeGet extends AsyncTask<String, Void, Void> {
         this(path, Constants.getDOMAIN());
     }
 
-    public abstract void onJson(JsonElement element);
+    public abstract void onJson(JsonElement element, String... strings);
 
     public abstract void onError(HttpURLConnection connection);
 
@@ -47,7 +47,7 @@ public abstract class MakeGet extends AsyncTask<String, Void, Void> {
             if (conn.getResponseCode() == 200) {
                 JsonElement json = JsonParser.parseReader(new InputStreamReader(conn.getInputStream()));
                 Log.i("JSON" , json.toString());
-                this.onJson(json);
+                this.onJson(json, strings);
             } else {
                 this.onError(conn);
             }
