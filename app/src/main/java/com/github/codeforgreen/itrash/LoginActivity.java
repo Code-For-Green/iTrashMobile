@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.github.codeforgreen.itrash.tasks.LoginTask;
+import com.github.codeforgreen.itrash.tasks.MiastaTask;
 
 public class LoginActivity extends AppCompatActivity {
 

@@ -4,10 +4,10 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.github.codeforgreen.itrash.util.Constants;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -16,18 +16,18 @@ import java.net.URL;
 public abstract class MakePost extends AsyncTask<String, Void, Void> {
 
     private final String url;
-    private final JSONObject json;
+    private final JsonObject json;
 
-    public MakePost(String path, JSONObject json, String domain) {
+    public MakePost(String path, JsonObject json, String domain) {
         this.url = domain + path;
         this.json = json;
     }
 
-    public MakePost(String path, JSONObject json) {
+    public MakePost(String path, JsonObject json) {
         this(path, json, Constants.getDOMAIN());
     }
 
-    public abstract void onJson(JSONObject json);
+    public abstract void onJson(JsonElement element);
 
     public abstract void onError(HttpURLConnection connection);
 
@@ -35,9 +35,10 @@ public abstract class MakePost extends AsyncTask<String, Void, Void> {
 
     @Override
     protected Void doInBackground(String... strings) {
+        HttpURLConnection conn = null;
         try {
             URL url = new URL(this.url);
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("POST");
             conn.setRequestProperty("Content-Type", "application/json");
             conn.setRequestProperty("Accept","application/json");
@@ -54,19 +55,11 @@ public abstract class MakePost extends AsyncTask<String, Void, Void> {
             Log.i("METHOD", conn.getRequestMethod());
             Log.i("STATUS", String.valueOf(conn.getResponseCode()));
             Log.i("MSG" , conn.getResponseMessage());
-            conn.disconnect();
 
             if (conn.getResponseCode() == 200) {
-                BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-                StringBuilder sb = new StringBuilder();
-                String line;
-                while ((line = br.readLine()) != null) {
-                    sb.append(line).append("\n");
-                }
-                br.close();
-
-                Log.i("JSON" , sb.toString());
-                this.onJson(new JSONObject(sb.toString()));
+                JsonElement json = JsonParser.parseReader(new InputStreamReader(conn.getInputStream()));
+                Log.i("JSON" , json.toString());
+                this.onJson(json);
             } else {
                 this.onError(conn);
             }
@@ -74,6 +67,28 @@ public abstract class MakePost extends AsyncTask<String, Void, Void> {
             t.printStackTrace();
             this.onError(t);
         }
+        if (conn != null) {
+            conn.disconnect();
+        }
         return null;
+    }
+
+    protected static JsonObject prepare(Object... objects) {
+        JsonObject object = new JsonObject();
+        for (int i = 0; i < objects.length; i = i + 2) {
+            Object obj = objects[i + 1];
+            if (obj instanceof JsonElement) {
+                object.add(objects[i].toString(), ((JsonElement) obj));
+            } else if (obj instanceof Number) {
+                object.addProperty(objects[i].toString(), (Number) obj);
+            } else if (obj instanceof String) {
+                object.addProperty(objects[i].toString(), (String) obj);
+            } else if (obj instanceof Boolean) {
+                object.addProperty(objects[i].toString(), (Boolean) obj);
+            } else if (obj instanceof Character) {
+                object.addProperty(objects[i].toString(), (Character) obj);
+            }
+        }
+        return object;
     }
 }

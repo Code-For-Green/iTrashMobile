@@ -10,9 +10,8 @@ import android.widget.Toast;
 
 import com.github.codeforgreen.itrash.MainActivity;
 import com.github.codeforgreen.itrash.api.request.MakePost;
-
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 
 import java.net.HttpURLConnection;
 
@@ -21,19 +20,18 @@ public class LoginTask extends MakePost {
     @SuppressLint("StaticFieldLeak")
     public final AppCompatActivity activity;
 
-    public LoginTask(AppCompatActivity activity, String email, String password) throws JSONException {
-        super("login", new JSONObject()
-                .put("Login", email)
-                .put("Password", password));
+    public LoginTask(AppCompatActivity activity, String email, String password) {
+        super("login", prepare("Login", email, "Password", password));
         this.activity = activity;
     }
 
     @Override
-    public void onJson(JSONObject json) {
+    public void onJson(JsonElement element) {
         try {
+            JsonObject json = element.getAsJsonObject();
             SharedPreferences.Editor editor = this.activity.getSharedPreferences("iTrash", Context.MODE_PRIVATE).edit();
-            editor.putString("Token", json.getString("Token"));
-            editor.putLong("Expiration", json.getLong("Expiration") * 1000);
+            editor.putString("Token", json.get("Token").getAsString());
+            editor.putLong("Expiration", json.get("Expiration").getAsLong() * 1000);
             editor.apply();
 
             Intent intent = new Intent(this.activity, MainActivity.class);

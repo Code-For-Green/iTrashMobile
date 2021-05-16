@@ -4,10 +4,9 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.github.codeforgreen.itrash.util.Constants;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -24,7 +23,7 @@ public abstract class MakeGet extends AsyncTask<String, Void, Void> {
         this(path, Constants.getDOMAIN());
     }
 
-    public abstract void onJson(JSONObject json);
+    public abstract void onJson(JsonElement element);
 
     public abstract void onError(HttpURLConnection connection);
 
@@ -32,9 +31,10 @@ public abstract class MakeGet extends AsyncTask<String, Void, Void> {
 
     @Override
     protected Void doInBackground(String... strings) {
+        HttpURLConnection conn = null;
         try {
             URL url = new URL(this.url);
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
             conn.setRequestProperty("Accept","application/json");
             conn.setDoOutput(false);
@@ -45,16 +45,9 @@ public abstract class MakeGet extends AsyncTask<String, Void, Void> {
             Log.i("MSG" , conn.getResponseMessage());
 
             if (conn.getResponseCode() == 200) {
-                BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-                StringBuilder sb = new StringBuilder();
-                String line;
-                while ((line = br.readLine()) != null) {
-                    sb.append(line).append("\n");
-                }
-                br.close();
-
-                Log.i("JSON" , sb.toString());
-                this.onJson(new JSONObject(sb.toString()));
+                JsonElement json = JsonParser.parseReader(new InputStreamReader(conn.getInputStream()));
+                Log.i("JSON" , json.toString());
+                this.onJson(json);
             } else {
                 this.onError(conn);
             }
@@ -62,6 +55,9 @@ public abstract class MakeGet extends AsyncTask<String, Void, Void> {
         } catch (Throwable t) {
             t.printStackTrace();
             this.onError(t);
+        }
+        if (conn != null) {
+            conn.disconnect();
         }
         return null;
     }

@@ -9,29 +9,26 @@ import com.github.codeforgreen.itrash.api.calendar.Region;
 import com.github.codeforgreen.itrash.api.request.MakeGet;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-
-import org.json.JSONObject;
 
 import java.net.HttpURLConnection;
 import java.time.Month;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CalendarTask extends MakeGet {
+public abstract class CalendarTask extends MakeGet {
 
     @SuppressLint("StaticFieldLeak")
     public final AppCompatActivity activity;
 
-    public CalendarTask(AppCompatActivity activity) {
-        super("miasta.json", "https://bot.indbuildcraft.pl/");
+    public CalendarTask(AppCompatActivity activity, Type type) {
+        super(type.name().toLowerCase() + ".json", "https://bot.indbuildcraft.pl/");
         this.activity = activity;
     }
 
     @Override
-    public void onJson(JSONObject jsonold) {
+    public void onJson(JsonElement element) {
         try {
-            JsonObject json = JsonParser.parseString(jsonold.toString()).getAsJsonObject();
+            JsonObject json = element.getAsJsonObject();
             HashMap<String, Region> regions = new HashMap<>();
             for (Map.Entry<String, JsonElement> entry : json.entrySet()) {
                 regions.put(entry.getKey(), new Region(entry.getKey(), entry.getValue().getAsJsonObject()));
@@ -56,5 +53,10 @@ public class CalendarTask extends MakeGet {
     @Override
     public void onError(Throwable t) {
         this.activity.runOnUiThread(() -> Toast.makeText(this.activity.getApplicationContext(), t.toString(), Toast.LENGTH_LONG).show());
+    }
+
+    public enum Type {
+        MIASTA,
+        WIOSKI
     }
 }
