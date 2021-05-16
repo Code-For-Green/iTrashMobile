@@ -24,7 +24,9 @@ public class LoginActivity extends AppCompatActivity {
         EditText email = findViewById(R.id.login_email);
         EditText password = findViewById(R.id.login_password);
         try {
-            new LoginTask(this, email.getText().toString(), password.getText().toString()).execute(null, null);
+            // Task for tests
+            //new MiastaTask(this).execute();
+            new LoginTask(this, email.getText().toString(), password.getText().toString()).execute();
         } catch (Throwable t) {
             t.printStackTrace();
         }

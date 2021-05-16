@@ -1,5 +1,6 @@
 package com.github.codeforgreen.itrash.tasks;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -17,10 +18,14 @@ import java.net.HttpURLConnection;
 
 public class LoginTask extends MakePost {
 
+    @SuppressLint("StaticFieldLeak")
+    public final AppCompatActivity activity;
+
     public LoginTask(AppCompatActivity activity, String email, String password) throws JSONException {
-        super(activity, "login", new JSONObject()
+        super("login", new JSONObject()
                 .put("Login", email)
                 .put("Password", password));
+        this.activity = activity;
     }
 
     @Override
@@ -34,7 +39,6 @@ public class LoginTask extends MakePost {
             Intent intent = new Intent(this.activity, MainActivity.class);
             this.activity.startActivity(intent);
             this.activity.finish();
-
         } catch (Throwable t) {
             t.printStackTrace();
         }
