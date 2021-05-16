@@ -1,6 +1,9 @@
 package com.github.codeforgreen.itrash;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
 
@@ -62,5 +65,15 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main_avtivity);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    public void action_logout(MenuItem item) {
+        MainActivity.this.getSharedPreferences("iTrash", Context.MODE_PRIVATE)
+                .edit()
+                .clear()
+                .apply();
+
+        startActivity(new Intent(MainActivity.this, LoginActivity.class));
+        MainActivity.this.finish();
     }
 }

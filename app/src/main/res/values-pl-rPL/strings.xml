@@ -7,6 +7,7 @@
     <string name="action_settings">Ustawienia</string>
     <string name="action_Authors">Autorzy</string>
     <string name="nav_calendar">Kalendarz</string>
+    <string name="action_logout">Wyloguj się</string>
     <string name="nav_nearby_garbage_cans">Śmietniki w pobliżu</string>
     <string name="nav_recycling">Recykling</string>
     <string name="nav_report_garbage">Zgłoś śmieci</string>
