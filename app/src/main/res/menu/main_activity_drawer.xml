@@ -6,11 +6,23 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic__14_earth"
             android:title="@string/menu_home" />
         <item
             android:id="@+id/nav_calendar"
             android:title="@string/nav_calendar"
-            android:icon="@drawable/app_logo"/>
+            android:icon="@drawable/ic__35_calendar"/>
+        <item
+            android:id="@+id/nav_recycling"
+            android:title="@string/nav_recycling"
+            android:icon="@drawable/ic__01_recycle"/>
+        <item
+            android:id="@+id/nav_nearby_garbage_cans"
+            android:title="@string/nav_nearby_garbage_cans"
+            android:icon="@drawable/ic__38_recycle_bin_2"/>
+        <item
+            android:id="@+id/nav_report_garbage"
+            android:title="@string/nav_report_garbage"
+            android:icon="@drawable/ic__03_recycling_bag"/>
     </group>
 </menu>

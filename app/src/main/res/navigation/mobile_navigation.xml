@@ -15,4 +15,19 @@
         android:name="com.github.codeforgreen.itrash.ui.calendar.CalendarFragment"
         android:label="@string/nav_calendar"
         tools:layout="@layout/fragment_calendar"/>
+    <fragment
+        android:id="@+id/nav_nearby_garbage_cans"
+        android:name="com.github.codeforgreen.itrash.ui.garbage_cans.GarbageCansFragment"
+        tools:layout="@layout/fragment_garbage_cans"
+        android:label="@string/nav_nearby_garbage_cans"/>
+    <fragment
+        android:id="@+id/nav_recycling"
+        android:name="com.github.codeforgreen.itrash.ui.recycling.RecyclingFragment"
+        tools:layout="@layout/fragment_recycling"
+        android:label="@string/nav_recycling"/>
+    <fragment
+        android:id="@+id/nav_report_garbage"
+        android:name="com.github.codeforgreen.itrash.ui.report_garbage.ReportGarbageFragment"
+        tools:layout="@layout/fragment_repot_garbage"
+        android:label="@string/nav_report_garbage"/>
 </navigation>

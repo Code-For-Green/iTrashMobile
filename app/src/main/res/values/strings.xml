@@ -8,12 +8,15 @@
     <string name="title_activity_main_avtivity">MainAvtivity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">User Kowalski</string>
-    <string name="nav_header_subtitle">user.kowalski@gmail.com</string>
+    <string name="nav_header_title" translatable="false">User Kowalski</string>
+    <string name="nav_header_subtitle" translatable="false">user.kowalski@gmail.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
     <string name="menu_home" translatable="false">Home</string>
     <string name="action_Authors">Authors</string>
     <string name="nav_calendar">Calendar</string>
+    <string name="nav_nearby_garbage_cans">Nearby garbage cans</string>
+    <string name="nav_recycling">Recycling</string>
+    <string name="nav_report_garbage">Report garbage</string>
 </resources>
