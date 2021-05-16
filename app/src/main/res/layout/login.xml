@@ -17,6 +17,7 @@
         app:srcCompat="@drawable/app_logo_no_border" />
 
     <EditText
+        android:backgroundTint="@color/green"
         android:id="@+id/login_email"
         android:layout_width="310dp"
         android:layout_height="wrap_content"
@@ -29,6 +30,7 @@
         android:textColorHint="@color/white" />
 
     <EditText
+        android:backgroundTint="@color/green"
         android:id="@+id/login_password"
         android:layout_width="310dp"
         android:layout_margin="10dp"
@@ -39,7 +41,7 @@
         android:inputType="textPassword"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
-        android:layout_marginBottom="30dp"/>
+        android:layout_marginBottom="30dp" />
 
     <Button
         android:id="@+id/login_button"
