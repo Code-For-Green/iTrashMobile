@@ -1,9 +1,7 @@
 package com.github.codeforgreen.itrash.api.request;
 
-import android.os.AsyncTask;
 import android.util.Log;
 
-import com.github.codeforgreen.itrash.util.Constants;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 
@@ -11,23 +9,15 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public abstract class MakeGet extends AsyncTask<String, Void, Void> {
-
-    private final String url;
+public abstract class MakeGet extends Make {
 
     public MakeGet(String path, String domain) {
-        this.url = domain + path;
+        super(path, domain);
     }
 
     public MakeGet(String path) {
-        this(path, Constants.getDOMAIN());
+        super(path);
     }
-
-    public abstract void onJson(JsonElement element, String... strings);
-
-    public abstract void onError(HttpURLConnection connection);
-
-    public abstract void onError(Throwable t);
 
     @Override
     protected Void doInBackground(String... strings) {

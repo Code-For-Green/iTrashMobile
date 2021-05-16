@@ -1,6 +1,5 @@
 package com.github.codeforgreen.itrash.api.request;
 
-import android.os.AsyncTask;
 import android.util.Log;
 
 import com.github.codeforgreen.itrash.util.Constants;
@@ -13,25 +12,18 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public abstract class MakePost extends AsyncTask<String, Void, Void> {
+public abstract class MakePost extends Make {
 
-    private final String url;
     private final JsonObject json;
 
     public MakePost(String path, JsonObject json, String domain) {
-        this.url = domain + path;
+        super(path, domain);
         this.json = json;
     }
 
     public MakePost(String path, JsonObject json) {
         this(path, json, Constants.getDOMAIN());
     }
-
-    public abstract void onJson(JsonElement element, String... strings);
-
-    public abstract void onError(HttpURLConnection connection);
-
-    public abstract void onError(Throwable t);
 
     @Override
     protected Void doInBackground(String... strings) {
