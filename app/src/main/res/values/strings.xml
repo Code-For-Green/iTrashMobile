@@ -16,4 +16,5 @@
     <string name="menu_home" translatable="false">Home</string>
     <string name="action_Authors">Authors</string>
     <string name="nav_calendar">Calendar</string>
+    <string name="action_logout">Log out</string>
 </resources>

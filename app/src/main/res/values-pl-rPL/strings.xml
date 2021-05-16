@@ -7,4 +7,5 @@
     <string name="action_settings">Ustawienia</string>
     <string name="action_Authors">Autorzy</string>
     <string name="nav_calendar">Kalendarz</string>
+    <string name="action_logout">Wyloguj się</string>
 </resources>
