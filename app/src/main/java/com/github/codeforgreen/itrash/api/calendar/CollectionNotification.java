@@ -60,6 +60,6 @@ public class CollectionNotification {
 
         long time = dateTime.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        alarmManager.set(AlarmManager.RTC_WAKEUP, time, pendingIntent);
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, time, pendingIntent);
     }
 }
