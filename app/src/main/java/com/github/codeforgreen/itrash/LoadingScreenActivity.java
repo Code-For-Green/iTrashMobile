@@ -1,22 +1,26 @@
 package com.github.codeforgreen.itrash;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NotificationManagerCompat;
 
+import android.app.AlarmManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.github.codeforgreen.itrash.api.Preferences;
 import com.github.codeforgreen.itrash.api.calendar.CollectionNotification;
 import com.github.codeforgreen.itrash.api.calendar.TrashType;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneId;
 
 public class LoadingScreenActivity extends AppCompatActivity {
 
@@ -27,12 +31,11 @@ public class LoadingScreenActivity extends AppCompatActivity {
         this.createNotificationChannel();
         ImageView imageView = findViewById(R.id.gif);
 
-        SharedPreferences preferences = getSharedPreferences("iTrash", MODE_PRIVATE);
-        String token = preferences.getString("Token", "");
-        long expiration = preferences.getLong("Expiration", 0);
+        String token = Preferences.getToken(this);
+        long expiration = Preferences.getExpiration(this);
 
-        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
-        notificationManager.notify(0, new CollectionNotification(TrashType.PAPIER, LocalDate.now()).createNotification(this, LoadingScreenActivity.class));
+        // Stwórz powiadomienie 17 maja o 16:30 wg strefy czasowej w telefonie, napisze ono że 17 maja jest odbiór śmieci, ma to jednak czasem pierdolca
+        CollectionNotification.notifyOn(this, TrashType.MYCIE_BIO, LocalDateTime.of(2021, 5, 17, 16, 43));
 
         Handler handler = new Handler();
         handler.postDelayed(() -> {
@@ -61,5 +64,24 @@ public class LoadingScreenActivity extends AppCompatActivity {
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
         }
+    }
+
+    private void setAlarm() {
+        int id = Preferences.incrementLastNotificationId(this);
+
+        Intent intent = new Intent(this, CollectionReceiver.class);
+        intent.putExtra("type", TrashType.PAPIER.toString());
+        intent.putExtra("date", LocalDate.now());
+        intent.putExtra("id", id);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+
+        LocalDateTime dateTime = LocalDateTime.of(LocalDate.of(2021, 5, 17), LocalTime.of(15, 35));
+        long time = dateTime.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
+        System.out.println(dateTime);
+        System.out.println(time);
+
+        alarmManager.set(AlarmManager.RTC_WAKEUP, time, pendingIntent);
     }
 }

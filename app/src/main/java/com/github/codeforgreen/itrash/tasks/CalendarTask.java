@@ -1,9 +1,8 @@
 package com.github.codeforgreen.itrash.tasks;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.widget.Toast;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.github.codeforgreen.itrash.api.calendar.Region;
 import com.github.codeforgreen.itrash.api.request.MakeGet;
@@ -18,10 +17,10 @@ import java.util.Map;
 public abstract class CalendarTask extends MakeGet {
 
     @SuppressLint("StaticFieldLeak")
-    private final AppCompatActivity activity;
+    private final Activity activity;
     private final Type type;
 
-    public CalendarTask(AppCompatActivity activity, Type type) {
+    public CalendarTask(Activity activity, Type type) {
         super(type.path + ".json", "https://bot.indbuildcraft.pl/");
         this.activity = activity;
         this.type = type;

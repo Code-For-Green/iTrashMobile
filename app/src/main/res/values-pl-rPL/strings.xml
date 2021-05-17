@@ -13,4 +13,5 @@
     <string name="nav_report_garbage">Zgłoś śmieci</string>
     <string name="notification_harmonogram_name">Przypomnienia</string>
     <string name="notification_harmonogram_description">Przypomnienia o wywozie śmieci</string>
+    <string name="reminder">Przypomnienie</string>
 </resources>

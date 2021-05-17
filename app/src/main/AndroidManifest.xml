@@ -24,6 +24,12 @@
         <activity
             android:name=".MainActivity"/>
         <activity android:name=".LoginActivity" />
+
+        <receiver
+            android:name=".CollectionReceiver"
+            android:process=":remote"
+            android:enabled="true" />
+
     </application>
 
 </manifest>

@@ -22,4 +22,5 @@
     <string name="nav_report_garbage">Report garbage</string>
     <string name="notification_harmonogram_name">Reminders</string>
     <string name="notification_harmonogram_description">Garbage collection reminders</string>
+    <string name="reminder">Reminder</string>
 </resources>
