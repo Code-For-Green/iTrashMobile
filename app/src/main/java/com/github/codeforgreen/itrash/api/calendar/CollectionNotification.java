@@ -50,11 +50,15 @@ public class CollectionNotification {
     }
 
     public static void notifyOn(Context context, TrashType type, LocalDateTime dateTime) {
+        notifyOn(context, type, dateTime, dateTime.toLocalDate());
+    }
+
+    public static void notifyOn(Context context, TrashType type, LocalDateTime dateTime, LocalDate date) {
         int id = Preferences.incrementLastNotificationId(context);
 
         Intent intent = new Intent(context, CollectionReceiver.class);
         intent.putExtra("type", type.toString()); // TrashType is Serializable, but it always returns null
-        intent.putExtra("date", dateTime);
+        intent.putExtra("date", date);
         intent.putExtra("id", id);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
