@@ -2,19 +2,21 @@ package com.github.codeforgreen.itrash.api.calendar;
 
 public enum TrashType {
 
-    ZMIESZANE("Zmieszane"),
-    TWORZYWA("Tworzywa"),
-    PAPIER("Papier"),
-    SZKLO("Szkło"),
-    BIO("Bio"),
-    MYCIE_BIO("Mycie poj. bio"),
-    MYCIE_KOM("Mycie poj. kom"),
+    ZMIESZANE("Zmieszane", "Zmieszane"),
+    TWORZYWA("Tworzywa", "Tworzywa"),
+    PAPIER("Papier", "Papier"),
+    SZKLO("Szkło", "Szkło"),
+    BIO("Bio", "Bio"),
+    MYCIE_BIO("Mycie poj. bio", "Mycie pojemników bio"),
+    MYCIE_KOM("Mycie poj. kom", "Mycie pojemników komunalnych"),
     ;
 
-    private final String name;
+    public final String name;
+    public final String niceName;
 
-    TrashType(String name) {
+    TrashType(String name, String niceName) {
         this.name = name;
+        this.niceName = niceName;
     }
 
     public static TrashType of(String name) {
