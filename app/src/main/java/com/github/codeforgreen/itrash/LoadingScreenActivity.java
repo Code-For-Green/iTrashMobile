@@ -34,8 +34,9 @@ public class LoadingScreenActivity extends AppCompatActivity {
         String token = Preferences.getToken(this);
         long expiration = Preferences.getExpiration(this);
 
-        // Stwórz powiadomienie 17 maja o 16:30 wg strefy czasowej w telefonie, napisze ono że 17 maja jest odbiór śmieci, ma to jednak czasem pierdolca
-        CollectionNotification.notifyOn(this, TrashType.MYCIE_BIO, LocalDateTime.of(2021, 5, 17, 16, 43));
+        // Stwórz powiadomienie 18 maja o 15:00 wg strefy czasowej w telefonie, napisze ono że 18 maja jest odbiór śmieci
+        // Jeśli to zostanie wywołane po 18 maja po 15:00 to powiadomienie zostanie wyświetlone tak szybko jak to możliwe
+        CollectionNotification.notifyOn(this, TrashType.MYCIE_BIO, LocalDateTime.of(2021, 5, 18, 15, 0));
 
         Handler handler = new Handler();
         handler.postDelayed(() -> {
