@@ -23,4 +23,11 @@
     <string name="notification_harmonogram_name">Reminders</string>
     <string name="notification_harmonogram_description">Garbage collection reminders</string>
     <string name="reminder">Reminder</string>
+    <string name="trash_type_zmieszane">Mixed</string>
+    <string name="trash_type_tworzywa">Plastics</string>
+    <string name="trash_type_papier">Paper</string>
+    <string name="trash_type_szklo">Glass</string>
+    <string name="trash_type_bio" translatable="false">Bio</string>
+    <string name="trash_type_mycie_bio">Washing bio containers</string>
+    <string name="trash_type_mycie_kom">Washing communal containers</string>
 </resources>

@@ -14,4 +14,10 @@
     <string name="notification_harmonogram_name">Przypomnienia</string>
     <string name="notification_harmonogram_description">Przypomnienia o wywozie śmieci</string>
     <string name="reminder">Przypomnienie</string>
+    <string name="trash_type_zmieszane">Zmieszane</string>
+    <string name="trash_type_tworzywa">Tworzywa</string>
+    <string name="trash_type_papier">Papier</string>
+    <string name="trash_type_szklo">Szkło</string>
+    <string name="trash_type_mycie_bio">Mycie pojemników bio</string>
+    <string name="trash_type_mycie_kom">Mycie pojemników komunalnych</string>
 </resources>

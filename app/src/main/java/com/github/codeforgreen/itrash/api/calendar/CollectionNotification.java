@@ -36,7 +36,7 @@ public class CollectionNotification {
                 .setSmallIcon(R.drawable.app_logo) // Ustawia ikonkę
                 .setColor(Color.rgb(0, 0, 255)) // Ustawia kolor ikonki
                 .setSubText(context.getString(R.string.reminder)) // Ustawia tekst obok ikonki
-                .setContentTitle(this.type.niceName) // Ustawia tytuł powiadomienia
+                .setContentTitle(this.type.getNiceName(context)) // Ustawia tytuł powiadomienia
                 .setContentText(this.date.toString())
                 .setStyle(new NotificationCompat.BigTextStyle()
                         .bigText(this.date.toString() + "\nPamiętaj o wystawieniu pojemnika bądź worków przed godziną 6:30!")) // Ustawia tekst powiadomienia
